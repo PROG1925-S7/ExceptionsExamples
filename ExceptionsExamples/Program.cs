@@ -18,7 +18,8 @@ namespace ExceptionsExamples
     {
         static void Main(string[] args)
         {
-            TryCatchExamples();
+            //TryCatchExamples();
+            ValidatingInput();
 
             Console.ReadKey();
         }
@@ -32,7 +33,7 @@ namespace ExceptionsExamples
                 Console.Write("Please enter a number (1-100): ");
                 num1 = Convert.ToInt16(Console.ReadLine());
 
-                if (num1 < 1 || num1 > 100) 
+                if (num1 < 1 || num1 > 100)
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -47,9 +48,9 @@ namespace ExceptionsExamples
 
                 Console.WriteLine($"The answer is {answer}");
             }
-            catch (FormatException e) 
+            catch (FormatException e)
             {
-               // Console.WriteLine(e.Message);
+                // Console.WriteLine(e.Message);
                 Console.WriteLine("Integer values only");
             }
             catch (OverflowException)
@@ -69,10 +70,40 @@ namespace ExceptionsExamples
                 Console.WriteLine("Not sure what happened, but something broke");
             }
             finally
-            { 
-                Console.WriteLine("See you again soon."); 
+            {
+                Console.WriteLine("See you again soon.");
             }
 
+        }
+
+        static void ValidatingInput()
+        {
+            double num1, num2;
+
+            num1 = GetDouble("Please enter your age: ");
+            num2 = GetDouble("Please enter a height: ");
+        }
+
+        static double GetDouble(string userPrompt)
+        {
+            double num1 = 0;
+            bool inputOk = false;
+
+            do
+            {
+                try
+                {
+                    Console.Write(userPrompt);
+                    num1 = Convert.ToDouble(Console.ReadLine());
+                    inputOk = true;
+                }
+                catch
+                {
+                    //Console.WriteLine("ERROR");
+                }
+            } while (inputOk == false);
+
+            return num1;
         }
     }
 }
